@@ -35,28 +35,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.voucherRoutes = exports.start = void 0;
+exports.start = void 0;
 const Hapi = __importStar(require("@hapi/hapi"));
 const HapiSwagger = __importStar(require("hapi-swagger"));
 const inert_1 = __importDefault(require("@hapi/inert"));
 const vision_1 = __importDefault(require("@hapi/vision"));
-const joi_1 = __importDefault(require("joi"));
-const dotenv = __importStar(require("dotenv"));
-const voucherService_1 = require("./services/voucherService");
-//import { findVoucher } from './models/voucherModel';
-const voucherService_2 = require("./services/voucherService");
 const db_config_1 = require("./configs/db.config");
-dotenv.config();
-(0, db_config_1.connectDb)();
-(0, voucherService_2.findVoucher)();
-// code omitted for brevity
-const voucherPayload = joi_1.default.object({
-    voucherName: joi_1.default.string(),
-    idEvent: joi_1.default.string().required()
-});
+const voucherController_1 = require("./controllers/voucherController");
 const server = Hapi.server({
-    port: 3000,
+    port: 3300,
     host: 'localhost'
+});
+server.route({
+    method: "GET",
+    path: "/",
+    handler: function () {
+        return "day la trang mac dinh";
+    }
 });
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     const swaggerOptions = {
@@ -81,26 +76,9 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Server running on %s', server.info.uri);
 });
 exports.start = start;
-const voucherRoutes = (server) => {
-    //create new voucher
-    server.route({
-        method: "POST",
-        path: "/voucher",
-        options: {
-            description: 'Create new voucher',
-            notes: 'This route create new voucher',
-            tags: ['api'],
-            validate: {
-                payload: voucherPayload,
-            }
-        },
-        handler: voucherService_1.createVoucher
-    });
-    //server.route 2
-    // server.route 3 
-};
-exports.voucherRoutes = voucherRoutes;
-(0, exports.voucherRoutes)(server);
+(0, exports.start)();
+(0, db_config_1.connectDb)();
+(0, voucherController_1.voucherRoutes)(server);
 process.on('unhandledRejection', (err) => {
     console.log(err);
     process.exit(1);

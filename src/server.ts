@@ -10,8 +10,16 @@ import { connectDb } from "./configs/db.config"
 import { voucherRoutes } from './controllers/voucherController';
 
 const server: Server = Hapi.server({
-    port: 3000,
+    port: 3300,
     host: 'localhost'
+});
+
+server.route({
+    method: "GET",
+    path: "/",
+    handler:function(){
+        return "day la trang mac dinh" ;
+    }
 });
 
 export const start = async () => {
@@ -39,8 +47,9 @@ export const start = async () => {
     await server.start();
     console.log('Server running on %s', server.info.uri);
 }
-connectDb();
 
+start();
+connectDb();
 voucherRoutes(server);
 
 process.on('unhandledRejection', (err) => {

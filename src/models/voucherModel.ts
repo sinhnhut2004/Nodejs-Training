@@ -1,4 +1,9 @@
 import mongoose from 'mongoose'
+
+export interface IVoucher {
+  idEvent: String,
+  idUser: String
+}
 const Schema = mongoose.Schema;
 const voucherSchema = new Schema({
     voucherCode: {
@@ -11,11 +16,11 @@ const voucherSchema = new Schema({
       require: true
     },
     dateExpire: {
-      type: Date,
+      type: String,
       require: true
     }
   });
-export const VoucherModel = mongoose.model('account', voucherSchema);
+export const VoucherModel = mongoose.model('voucher', voucherSchema);
 
 
 

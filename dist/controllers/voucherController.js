@@ -1,14 +1,17 @@
-import { Server } from "@hapi/hapi";
-import Joi from "joi";
-import { createVoucher, getVoucher, updateVoucher, deleteVoucher } from "../services/voucherService"
-
-const voucherPayload = Joi.object({
-    idEvent: Joi.string().required(), 
-    idUser: Joi.string().required()
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.voucherRoutes = void 0;
+const joi_1 = __importDefault(require("joi"));
+const voucherService_1 = require("../services/voucherService");
+const voucherPayload = joi_1.default.object({
+    idEvent: joi_1.default.string().required(),
+    idUser: joi_1.default.string().required()
 });
-
-    // create voucher
-export const voucherRoutes = (server: Server) => {
+// create voucher
+const voucherRoutes = (server) => {
     server.route({
         method: "POST",
         path: "/voucher",
@@ -20,9 +23,8 @@ export const voucherRoutes = (server: Server) => {
                 payload: voucherPayload,
             }
         },
-        handler: createVoucher
+        handler: voucherService_1.createVoucher
     });
-
     //get a voucher by id event
     // server.route({
     //     method: "GET",
@@ -34,7 +36,6 @@ export const voucherRoutes = (server: Server) => {
     //     },
     //     handler: getVoucher
     // });
-
     //update a voucher
     // server.route({
     //     method: "PUT",
@@ -46,7 +47,6 @@ export const voucherRoutes = (server: Server) => {
     //     },
     //     handler: updateVoucher
     // });
-
     //delete voucher
     // server.route({
     //     method: "DELETE",
@@ -58,5 +58,5 @@ export const voucherRoutes = (server: Server) => {
     //     },
     //     handler: deleteVoucher
     // });
-
-}
+};
+exports.voucherRoutes = voucherRoutes;

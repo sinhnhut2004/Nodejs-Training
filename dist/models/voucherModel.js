@@ -6,22 +6,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.VoucherModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
-const hello = new Schema({
-    username: String,
-    password: String
+const voucherSchema = new Schema({
+    voucherCode: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    idEvent: {
+        type: String,
+        require: true
+    },
+    dateExpire: {
+        type: String,
+        require: true
+    }
 });
-exports.VoucherModel = mongoose_1.default.model('account', hello);
-/*export const findVoucher = () => {
-
-    const Schema = mongoose.Schema;
-    const hello = new Schema({
-      username: String,
-      password: String
-    });
-    const AccountModel = mongoose.model("account", hello);
-    AccountModel.find({}).then(function(data:object){
-        console.log(data)
-    }).catch(function(err:object){
-        console.log(err)
-    })
-}*/
+exports.VoucherModel = mongoose_1.default.model('voucher', voucherSchema);
