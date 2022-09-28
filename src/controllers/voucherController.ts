@@ -48,15 +48,15 @@ export const voucherRoutes = (server: Server) => {
     // });
 
     //delete voucher
-    // server.route({
-    //     method: "DELETE",
-    //     path: "/voucher/{id}",
-    //     options: {
-    //         description: 'Delete voucher',
-    //         notes: 'This route delete voucher',
-    //         tags: ['api']
-    //     },
-    //     handler: deleteVoucher
-    // });
+    server.route({
+        method: "DELETE",
+        path: "/voucher/{id}",
+        options: {
+            description: 'Delete voucher',
+            notes: 'This route delete voucher',
+            tags: ['api']
+        },
+        handler: deleteVoucher
+    });
 
 }

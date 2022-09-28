@@ -2,7 +2,6 @@ import { Request, ResponseToolkit } from "@hapi/hapi";
 import { VoucherModel } from "../models/voucherModel";
 import { IVoucher } from "../models/voucherModel";
 import { EventModel } from "../models/eventModel";
-import { object } from "joi";
 import { startSession } from "mongoose";
 
 // create voucher
@@ -46,7 +45,13 @@ export const createVoucher = async (request: Request, h: ResponseToolkit) => {
 // deleteVoucher
 export const deleteVoucher = async (request: Request, h: ResponseToolkit) => {
     try {
-        return h.response("day la api deleteVoucher");
+        var body = <IVoucher>request.payload;
+        var findVoucher = await VoucherModel.findOneAndDelete({"voucherCode": body.idUser})
+        if(findVoucher){
+            return h.response("xoa thanh cong voucher");
+        }
+        return h.response("xoa voucher that bai");
+
     } catch (error) {
         console.log(error)
     }
@@ -57,7 +62,12 @@ export const deleteVoucher = async (request: Request, h: ResponseToolkit) => {
 
 export const updateVoucher = async (request: Request, h: ResponseToolkit) => {
     try {
-        return h.response("day la api updateVoucher");
+        var body = <IVoucher>request.payload;
+        var findVoucher = await VoucherModel.findOneAndUpdate({"voucherCode": body.idUser}, )
+        if(findVoucher){
+            return h.response("cap nhat voucher thanh cong");
+        }
+        return h.response("cap nhat voucher that bai");
     } catch (error) {
         console.log(error)
     }
@@ -66,8 +76,18 @@ export const updateVoucher = async (request: Request, h: ResponseToolkit) => {
 
 // get voucher
 export const getVoucher = async (request: Request, h: ResponseToolkit) => {
+    var a = new Object;
     try {
-        return h.response("day la api getVoucher");
+        var body = <IVoucher>request.payload;
+        var findVoucher = await VoucherModel.findOne({"voucherCode": body.idUser}).then(function(data){
+            if(!data){
+                return h.response("khong tim thay voucher");
+            }
+            a = data;
+        })
+        if(findVoucher){
+            return h.response(a);
+        }
     } catch (error) {
         console.log(error)
     }
