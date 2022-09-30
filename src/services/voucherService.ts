@@ -76,7 +76,24 @@ export const updateVoucher = async (request: Request, h: ResponseToolkit) => {
 }
 
 // get voucher
-export const getVoucher = async (request: Request, h: ResponseToolkit) => {
+export const getVoucherByID = async (request: Request, h: ResponseToolkit) => {
+    try {
+        //var body = <IVoucher>request.payload;
+        var idEvent = <string>request.params.idEvent;
+        var findEvent = await EventModel.findOne({"eventID": idEvent}).then(function(){
+             var a = VoucherModel.find({"idEvent":idEvent});
+             console.log(a);
+             //return h.response(a);
+        })
+        return h.response("");
+    } catch (error) {
+        console.log(error)
+    } 
+}
+
+// get all voucher
+
+export const getVouchers = async (request: Request, h: ResponseToolkit) => {
     try {
         //var body = <IVoucher>request.payload;
         var idEvent = <string>request.params.idEvent;
