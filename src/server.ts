@@ -3,9 +3,7 @@ import * as HapiSwagger from 'hapi-swagger';
 import { Server } from "@hapi/hapi";
 import Inert from "@hapi/inert";
 import Vision from "@hapi/vision";
-import Joi from "joi";
-import { createVoucher } from "./services/voucherService";
-import mongoose from 'mongoose';
+//import Joi from "joi";
 import { connectDb } from "./configs/db.config"
 import { voucherRoutes } from './controllers/voucherController';
 

@@ -40,6 +40,7 @@ const Hapi = __importStar(require("@hapi/hapi"));
 const HapiSwagger = __importStar(require("hapi-swagger"));
 const inert_1 = __importDefault(require("@hapi/inert"));
 const vision_1 = __importDefault(require("@hapi/vision"));
+//import Joi from "joi";
 const db_config_1 = require("./configs/db.config");
 const voucherController_1 = require("./controllers/voucherController");
 const server = Hapi.server({

@@ -46,7 +46,8 @@ export const createVoucher = async (request: Request, h: ResponseToolkit) => {
 export const deleteVoucher = async (request: Request, h: ResponseToolkit) => {
     try {
         var body = <IVoucher>request.payload;
-        var findVoucher = await VoucherModel.findOneAndDelete({"voucherCode": body.idUser})
+        var a = request.params.id;
+        var findVoucher = await VoucherModel.findOneAndDelete({"voucherCode": a})
         if(findVoucher){
             return h.response("xoa thanh cong voucher");
         }
@@ -76,20 +77,16 @@ export const updateVoucher = async (request: Request, h: ResponseToolkit) => {
 
 // get voucher
 export const getVoucher = async (request: Request, h: ResponseToolkit) => {
-    var a = new Object;
     try {
-        var body = <IVoucher>request.payload;
-        var findVoucher = await VoucherModel.findOne({"voucherCode": body.idUser}).then(function(data){
-            if(!data){
-                return h.response("khong tim thay voucher");
-            }
-            a = data;
+        //var body = <IVoucher>request.payload;
+        var idEvent = <string>request.params.idEvent;
+        var findEvent = await EventModel.findOne({"eventID": idEvent}).then(function(){
+             var a = VoucherModel.find({"idEvent":idEvent});
+             console.log(a);
+             //return h.response(a);
         })
-        if(findVoucher){
-            return h.response(a);
-        }
+        return h.response("");
     } catch (error) {
         console.log(error)
-    }
-    
+    } 
 }

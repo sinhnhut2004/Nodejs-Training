@@ -26,37 +26,37 @@ const voucherRoutes = (server) => {
         handler: voucherService_1.createVoucher
     });
     //get a voucher by id event
-    // server.route({
-    //     method: "GET",
-    //     path: "/voucher/{idEvent}",
-    //     options: {
-    //         description: 'GET A Voucher',
-    //         notes: 'This route GET A Voucher',
-    //         tags: ['api']
-    //     },
-    //     handler: getVoucher
-    // });
+    server.route({
+        method: "GET",
+        path: "/voucher/{idEvent}",
+        options: {
+            description: 'GET A Voucher',
+            notes: 'This route GET A Voucher',
+            tags: ['api']
+        },
+        handler: voucherService_1.getVoucher
+    });
     //update a voucher
-    // server.route({
-    //     method: "PUT",
-    //     path: "/voucher/{id}",
-    //     options: {
-    //         description: 'Update a voucher',
-    //         notes: 'This route Update a voucher',
-    //         tags: ['api']
-    //     },
-    //     handler: updateVoucher
-    // });
+    server.route({
+        method: "PUT",
+        path: "/voucher/{id}",
+        options: {
+            description: 'Update a voucher',
+            notes: 'This route Update a voucher',
+            tags: ['api']
+        },
+        handler: voucherService_1.updateVoucher
+    });
     //delete voucher
-    // server.route({
-    //     method: "DELETE",
-    //     path: "/voucher/{id}",
-    //     options: {
-    //         description: 'Delete voucher',
-    //         notes: 'This route delete voucher',
-    //         tags: ['api']
-    //     },
-    //     handler: deleteVoucher
-    // });
+    server.route({
+        method: "DELETE",
+        path: "/voucher/{id}",
+        options: {
+            description: 'Delete voucher',
+            notes: 'This route delete voucher',
+            tags: ['api']
+        },
+        handler: voucherService_1.deleteVoucher
+    });
 };
 exports.voucherRoutes = voucherRoutes;
