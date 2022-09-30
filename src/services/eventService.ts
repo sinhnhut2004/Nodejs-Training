@@ -50,3 +50,29 @@ export const updateEvent = async (request: Request, h: ResponseToolkit) => {
         console.log(error);
     }
 }
+
+export const getEvent = async (request: Request, h: ResponseToolkit) => {
+
+    try {
+        var body = <IEvent>request.payload;
+        var findEvent = await EventModel.find({"eventID": body.eventID}).then(function(data){
+            return h.response(data);
+        })
+        return h.response("get event that bai");
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getEvents = async (request: Request, h: ResponseToolkit) => {
+
+    try {
+        var body = <IEvent>request.payload;
+        var findEvent = await EventModel.find({}).then(function(data){
+            return h.response(data);
+        })
+        return h.response("get event that bai");
+    } catch (error) {
+        console.log(error);
+    }
+}

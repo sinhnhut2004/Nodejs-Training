@@ -33,7 +33,7 @@ export const createVoucher = async (request: Request, h: ResponseToolkit) => {
                 return h.response("tao thanh cong voucher");
             }          
         }
-        return h.response("that bai"); 
+        return h.response("tao voucher that bai"); 
     } catch (error) {
         console.log(error)
     }
@@ -92,7 +92,6 @@ export const getVoucherByID = async (request: Request, h: ResponseToolkit) => {
 }
 
 // get all voucher
-
 export const getVouchers = async (request: Request, h: ResponseToolkit) => {
     try {
         //var body = <IVoucher>request.payload;

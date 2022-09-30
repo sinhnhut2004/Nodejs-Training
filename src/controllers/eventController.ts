@@ -1,74 +1,76 @@
 import { Server } from "@hapi/hapi";
 import Joi from "joi";
-import { createVoucher, getVoucherByID, getVouchers, updateVoucher, deleteVoucher } from "../services/voucherService"
+import { createEvent, getEvent, getEvents, updateEvent, deleteEvent } from "../services/eventService";
 
-const voucherPayload = Joi.object({
+
+const eventPayload = Joi.object({
     idEvent: Joi.string().required(), 
-    idUser: Joi.string().required()
+    eventName: Joi.string().required(),
+    maxQuantityVoucher: Joi.number().required()
 });
 
-    // create voucher
-export const voucherRoutes = (server: Server) => {
+    // create event
+export const eventRoutes = (server: Server) => {
     server.route({
         method: "POST",
-        path: "/voucher",
+        path: "/event",
         options: {
-            description: 'Create new voucher',
-            notes: 'This route create new voucher',
+            description: 'Create new event',
+            notes: 'This route create new event',
             tags: ['api'],
             validate: {
-                payload: voucherPayload,
+                payload: eventPayload,
             }
         },
-        handler: createVoucher
+        handler: createEvent
     });
 
-    //get a voucher by id event
+    //get a event by id event
     server.route({
         method: "GET",
-        path: "/voucher/{idEvent}",
+        path: "/event/{idEvent}",
         options: {
-            description: 'GET A Voucher',
-            notes: 'This route GET A Voucher',
+            description: 'GET A Event',
+            notes: 'This route GET A Event',
             tags: ['api']
         },
-        handler: getVoucherByID
+        handler: getEvent
     });
 
-    //get a vouchers
+    //get all events
     server.route({
         method: "GET",
         path: "/voucher",
         options: {
-            description: 'GET All Voucher',
-            notes: 'This route GET A Voucher',
+            description: 'GET All Event',
+            notes: 'This route GET All Event',
             tags: ['api']
         },
-        handler: getVouchers
+        handler: getEvents
     });
 
-    //update a voucher
+    //update a event
     server.route({
         method: "PUT",
-        path: "/voucher/{id}",
+        path: "/event/{id}",
         options: {
-            description: 'Update a voucher',
-            notes: 'This route Update a voucher',
+            description: 'Update a event',
+            notes: 'This route Update a event',
             tags: ['api']
         },
-        handler: updateVoucher
+        handler: updateEvent
     });
 
-    //delete voucher
+    //delete event
     server.route({
         method: "DELETE",
-        path: "/voucher/{id}",
+        path: "/event/{id}",
         options: {
-            description: 'Delete voucher',
-            notes: 'This route delete voucher',
+            description: 'Delete event',
+            notes: 'This route delete event',
             tags: ['api']
         },
-        handler: deleteVoucher
+        handler: deleteEvent
     });
 
 }
