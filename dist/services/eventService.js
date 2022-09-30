@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEvent = exports.deleteEvent = exports.createEvent = void 0;
+exports.getEvents = exports.getEvent = exports.updateEvent = exports.deleteEvent = exports.createEvent = void 0;
 const eventModel_1 = require("../models/eventModel");
 // create event
 const createEvent = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
@@ -60,3 +60,29 @@ const updateEvent = (request, h) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.updateEvent = updateEvent;
+const getEvent = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        var body = request.payload;
+        var findEvent = yield eventModel_1.EventModel.find({ "eventID": body.eventID }).then(function (data) {
+            return h.response(data);
+        });
+        return h.response("get event that bai");
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.getEvent = getEvent;
+const getEvents = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        var body = request.payload;
+        var findEvent = yield eventModel_1.EventModel.find({}).then(function (data) {
+            return h.response(data);
+        });
+        return h.response("get event that bai");
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.getEvents = getEvents;

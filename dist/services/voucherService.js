@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getVoucher = exports.updateVoucher = exports.deleteVoucher = exports.createVoucher = void 0;
+exports.getVouchers = exports.getVoucherByID = exports.updateVoucher = exports.deleteVoucher = exports.createVoucher = void 0;
 const voucherModel_1 = require("../models/voucherModel");
 const eventModel_1 = require("../models/eventModel");
 const mongoose_1 = require("mongoose");
@@ -41,7 +41,7 @@ const createVoucher = (request, h) => __awaiter(void 0, void 0, void 0, function
                 return h.response("tao thanh cong voucher");
             }
         }
-        return h.response("that bai");
+        return h.response("tao voucher that bai");
     }
     catch (error) {
         console.log(error);
@@ -83,7 +83,7 @@ const updateVoucher = (request, h) => __awaiter(void 0, void 0, void 0, function
 });
 exports.updateVoucher = updateVoucher;
 // get voucher
-const getVoucher = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
+const getVoucherByID = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //var body = <IVoucher>request.payload;
         var idEvent = request.params.idEvent;
@@ -92,10 +92,27 @@ const getVoucher = (request, h) => __awaiter(void 0, void 0, void 0, function* (
             console.log(a);
             //return h.response(a);
         });
-        return h.response("laithatbairoi");
+        return h.response("");
     }
     catch (error) {
         console.log(error);
     }
 });
-exports.getVoucher = getVoucher;
+exports.getVoucherByID = getVoucherByID;
+// get all voucher
+const getVouchers = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        //var body = <IVoucher>request.payload;
+        var idEvent = request.params.idEvent;
+        var findEvent = yield eventModel_1.EventModel.findOne({ "eventID": idEvent }).then(function () {
+            var a = voucherModel_1.VoucherModel.find({ "idEvent": idEvent });
+            console.log(a);
+            //return h.response(a);
+        });
+        return h.response("");
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.getVouchers = getVouchers;

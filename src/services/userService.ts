@@ -19,24 +19,22 @@ export const createUser = async (request: Request, h: ResponseToolkit) => {
 export const getUser = async (request: Request, h: ResponseToolkit) => {
     try {
         var idUser = request.params.idUser;
-        var findUser = await UserModel.find({"userID": idUser}).then(function(data){
-            return h.response(data);
-        })
-        return h.response("Khong tim thay User");
-        
+        var findUser = await UserModel.find({"userID": idUser});
+        if(findUser)
+        {
+            return h.response(findUser);
+        }
+        return h.response("Khong tim thay User");           
     } catch (error) {
         console.log(error);
     }
 }
 
-
 export const getUsers = async (request: Request, h: ResponseToolkit) => {
     try {
         var idUser = request.params.idUser;
-        var findUser = await UserModel.find({}).then(function(data){
-            return h.response(data);
-        })
-        return h.response("Khong tim thay User");
+        var findUser = await UserModel.find({});   
+        return h.response(findUser);
         
     } catch (error) {
         console.log(error);
@@ -47,9 +45,10 @@ export const getUsers = async (request: Request, h: ResponseToolkit) => {
 export const updateUser = async (request: Request, h: ResponseToolkit) => {
     try {
         var idUser = request.params.idUser;
-        var findUser = await UserModel.findOneAndUpdate({"userID": idUser}).then(function(data){
+        var findUser = await UserModel.findOneAndUpdate({"userID": idUser}, {"email": "updated@gmail.com"});
+        if(findUser){
             return h.response("cap nhat nhat User thanh cong");
-        })
+        }       
         return h.response("Cap nhat user khong thanh cong");
         
     } catch (error) {
@@ -60,11 +59,12 @@ export const updateUser = async (request: Request, h: ResponseToolkit) => {
 export const deleteUser = async (request: Request, h: ResponseToolkit) => {
     try {
         var idUser = request.params.idUser;
-        var findUser = await UserModel.findOneAndDelete({"userID": idUser}).then(function(data){
+        var findUser = await UserModel.findOneAndDelete({"userID": idUser});
+        if(findUser){
             return h.response("Delete User thanh cong");
-        })
+        }       
         return h.response("Delete User that bai");
-        
+          
     } catch (error) {
         console.log(error);
     }

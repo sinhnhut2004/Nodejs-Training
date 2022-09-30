@@ -43,6 +43,8 @@ const vision_1 = __importDefault(require("@hapi/vision"));
 //import Joi from "joi";
 const db_config_1 = require("./configs/db.config");
 const voucherController_1 = require("./controllers/voucherController");
+const userController_1 = require("./controllers/userController");
+const eventController_1 = require("./controllers/eventController");
 const server = Hapi.server({
     port: 3300,
     host: 'localhost'
@@ -79,6 +81,8 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.start = start;
 (0, exports.start)();
 (0, db_config_1.connectDb)();
+(0, userController_1.usertRoutes)(server);
+(0, eventController_1.eventRoutes)(server);
 (0, voucherController_1.voucherRoutes)(server);
 process.on('unhandledRejection', (err) => {
     console.log(err);

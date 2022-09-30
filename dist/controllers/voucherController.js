@@ -34,7 +34,18 @@ const voucherRoutes = (server) => {
             notes: 'This route GET A Voucher',
             tags: ['api']
         },
-        handler: voucherService_1.getVoucher
+        handler: voucherService_1.getVoucherByID
+    });
+    //get a vouchers
+    server.route({
+        method: "GET",
+        path: "/voucher",
+        options: {
+            description: 'GET All Voucher',
+            notes: 'This route GET A Voucher',
+            tags: ['api']
+        },
+        handler: voucherService_1.getVouchers
     });
     //update a voucher
     server.route({

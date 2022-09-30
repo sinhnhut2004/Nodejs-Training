@@ -1,16 +1,18 @@
-import { Server } from "@hapi/hapi";
-import Joi from "joi";
-import { createEvent, getEvent, getEvents, updateEvent, deleteEvent } from "../services/eventService";
-
-
-const eventPayload = Joi.object({
-    idEvent: Joi.string().required(), 
-    eventName: Joi.string().required(),
-    maxQuantityVoucher: Joi.number().required()
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.eventRoutes = void 0;
+const joi_1 = __importDefault(require("joi"));
+const eventService_1 = require("../services/eventService");
+const eventPayload = joi_1.default.object({
+    idEvent: joi_1.default.string().required(),
+    eventName: joi_1.default.string().required(),
+    maxQuantityVoucher: joi_1.default.number().required()
 });
-
-    // create event
-export const eventRoutes = (server: Server) => {
+// create event
+const eventRoutes = (server) => {
     server.route({
         method: "POST",
         path: "/event",
@@ -22,9 +24,8 @@ export const eventRoutes = (server: Server) => {
                 payload: eventPayload,
             }
         },
-        handler: createEvent
+        handler: eventService_1.createEvent
     });
-
     //get a event by id event
     server.route({
         method: "GET",
@@ -34,9 +35,8 @@ export const eventRoutes = (server: Server) => {
             notes: 'This route GET A Event',
             tags: ['api']
         },
-        handler: getEvent
+        handler: eventService_1.getEvent
     });
-
     //get all events
     server.route({
         method: "GET",
@@ -46,9 +46,8 @@ export const eventRoutes = (server: Server) => {
             notes: 'This route GET All Event',
             tags: ['api']
         },
-        handler: getEvents
+        handler: eventService_1.getEvents
     });
-
     //update a event
     server.route({
         method: "PUT",
@@ -58,9 +57,8 @@ export const eventRoutes = (server: Server) => {
             notes: 'This route Update a event',
             tags: ['api']
         },
-        handler: updateEvent
+        handler: eventService_1.updateEvent
     });
-
     //delete event
     server.route({
         method: "DELETE",
@@ -70,7 +68,7 @@ export const eventRoutes = (server: Server) => {
             notes: 'This route delete event',
             tags: ['api']
         },
-        handler: deleteEvent
+        handler: eventService_1.deleteEvent
     });
-
-}
+};
+exports.eventRoutes = eventRoutes;

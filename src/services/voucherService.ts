@@ -64,7 +64,7 @@ export const deleteVoucher = async (request: Request, h: ResponseToolkit) => {
 export const updateVoucher = async (request: Request, h: ResponseToolkit) => {
     try {
         var body = <IVoucher>request.payload;
-        var findVoucher = await VoucherModel.findOneAndUpdate({"voucherCode": body.idUser}, )
+        var findVoucher = await VoucherModel.findOneAndUpdate({"voucherCode": body.idUser}, {"voucherCode": "updatedVoucher"});
         if(findVoucher){
             return h.response("cap nhat voucher thanh cong");
         }
@@ -78,14 +78,13 @@ export const updateVoucher = async (request: Request, h: ResponseToolkit) => {
 // get voucher
 export const getVoucherByID = async (request: Request, h: ResponseToolkit) => {
     try {
-        //var body = <IVoucher>request.payload;
         var idEvent = <string>request.params.idEvent;
-        var findEvent = await EventModel.findOne({"eventID": idEvent}).then(function(){
-             var a = VoucherModel.find({"idEvent":idEvent});
-             console.log(a);
-             //return h.response(a);
-        })
-        return h.response("");
+        var findEvent = await EventModel.find({"eventID": idEvent});
+        if(findEvent){
+            var a = await VoucherModel.find({"idEvent":idEvent});
+            return h.response(a);
+        }                    
+        return h.response("Khong tim thay voucher");
     } catch (error) {
         console.log(error)
     } 
@@ -95,13 +94,13 @@ export const getVoucherByID = async (request: Request, h: ResponseToolkit) => {
 export const getVouchers = async (request: Request, h: ResponseToolkit) => {
     try {
         //var body = <IVoucher>request.payload;
-        var idEvent = <string>request.params.idEvent;
-        var findEvent = await EventModel.findOne({"eventID": idEvent}).then(function(){
-             var a = VoucherModel.find({"idEvent":idEvent});
-             console.log(a);
-             //return h.response(a);
-        })
-        return h.response("");
+        var idEvent = request.params.idEvent;
+        var findEvent = await EventModel.find({"eventID": idEvent});
+        if(findEvent){
+            var a = VoucherModel.find({});
+            return h.response(a);
+        }         
+        return h.response("khong tim thay Voucher");
     } catch (error) {
         console.log(error)
     } 

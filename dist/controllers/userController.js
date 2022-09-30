@@ -1,16 +1,18 @@
-import { Server } from "@hapi/hapi";
-import Joi from "joi";
-import { createUser, getUser, getUsers, deleteUser, updateUser } from "../services/userService";
-
-
-const userPayload = Joi.object({
-    userID: Joi.string().required(), 
-    userName: Joi.string().required(),
-    email: Joi.string().required()
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.usertRoutes = void 0;
+const joi_1 = __importDefault(require("joi"));
+const userService_1 = require("../services/userService");
+const userPayload = joi_1.default.object({
+    userID: joi_1.default.string().required(),
+    userName: joi_1.default.string().required(),
+    email: joi_1.default.string().required()
 });
-
-    // create User
-export const usertRoutes = (server: Server) => {
+// create User
+const usertRoutes = (server) => {
     server.route({
         method: "POST",
         path: "/user",
@@ -22,9 +24,8 @@ export const usertRoutes = (server: Server) => {
                 payload: userPayload,
             }
         },
-        handler: createUser
+        handler: userService_1.createUser
     });
-
     //get a User by idUser
     server.route({
         method: "GET",
@@ -34,9 +35,8 @@ export const usertRoutes = (server: Server) => {
             notes: 'This route GET A User',
             tags: ['api']
         },
-        handler: getUser
+        handler: userService_1.getUser
     });
-
     //get all users
     server.route({
         method: "GET",
@@ -46,9 +46,8 @@ export const usertRoutes = (server: Server) => {
             notes: 'This route GET All User',
             tags: ['api']
         },
-        handler: getUsers
+        handler: userService_1.getUsers
     });
-
     //update a user
     server.route({
         method: "PUT",
@@ -58,9 +57,8 @@ export const usertRoutes = (server: Server) => {
             notes: 'This route Update a User',
             tags: ['api']
         },
-        handler: updateUser
+        handler: userService_1.updateUser
     });
-
     //delete user
     server.route({
         method: "DELETE",
@@ -70,7 +68,7 @@ export const usertRoutes = (server: Server) => {
             notes: 'This route delete User',
             tags: ['api']
         },
-        handler: deleteUser
+        handler: userService_1.deleteUser
     });
-
-}
+};
+exports.usertRoutes = usertRoutes;

@@ -7,7 +7,7 @@ export interface IUser {
 }
 
 const Schema = mongoose.Schema;
-const eventSchema = new Schema({
+const userSchema = new Schema({
     userID: {
       type: String,
       require: true,
@@ -23,4 +23,4 @@ const eventSchema = new Schema({
       require: true
     }
   });
-export const UserModel = mongoose.model('user', eventSchema);
+export const UserModel = mongoose.model('user', userSchema);
