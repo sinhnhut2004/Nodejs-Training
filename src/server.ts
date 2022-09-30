@@ -6,6 +6,8 @@ import Vision from "@hapi/vision";
 //import Joi from "joi";
 import { connectDb } from "./configs/db.config"
 import { voucherRoutes } from './controllers/voucherController';
+import { usertRoutes } from './controllers/userController';
+import { eventRoutes } from './controllers/eventController';
 
 const server: Server = Hapi.server({
     port: 3300,
@@ -48,6 +50,8 @@ export const start = async () => {
 
 start();
 connectDb();
+usertRoutes(server);
+eventRoutes(server);
 voucherRoutes(server);
 
 process.on('unhandledRejection', (err) => {
