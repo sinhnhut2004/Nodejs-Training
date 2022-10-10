@@ -40,43 +40,42 @@ const Hapi = __importStar(require("@hapi/hapi"));
 const HapiSwagger = __importStar(require("hapi-swagger"));
 const inert_1 = __importDefault(require("@hapi/inert"));
 const vision_1 = __importDefault(require("@hapi/vision"));
-//import Joi from "joi";
 const db_config_1 = require("./configs/db.config");
 const voucherController_1 = require("./controllers/voucherController");
 const userController_1 = require("./controllers/userController");
 const eventController_1 = require("./controllers/eventController");
 const server = Hapi.server({
     port: 3300,
-    host: 'localhost'
+    host: "localhost",
 });
 server.route({
     method: "GET",
     path: "/",
     handler: function () {
         return "day la trang mac dinh";
-    }
+    },
 });
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     const swaggerOptions = {
         info: {
-            title: 'Test API Documentation'
-        }
+            title: "Test API Documentation",
+        },
     };
     const plugins = [
         {
-            plugin: inert_1.default
+            plugin: inert_1.default,
         },
         {
-            plugin: vision_1.default
+            plugin: vision_1.default,
         },
         {
             plugin: HapiSwagger,
-            options: swaggerOptions
-        }
+            options: swaggerOptions,
+        },
     ];
     yield server.register(plugins);
     yield server.start();
-    console.log('Server running on %s', server.info.uri);
+    console.log("Server running on %s", server.info.uri);
 });
 exports.start = start;
 (0, exports.start)();
@@ -84,7 +83,7 @@ exports.start = start;
 (0, userController_1.usertRoutes)(server);
 (0, eventController_1.eventRoutes)(server);
 (0, voucherController_1.voucherRoutes)(server);
-process.on('unhandledRejection', (err) => {
+process.on("unhandledRejection", (err) => {
     console.log(err);
     process.exit(1);
 });

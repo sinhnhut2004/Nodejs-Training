@@ -68,9 +68,10 @@ exports.updateUser = updateUser;
 const deleteUser = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         var idUser = request.params.idUser;
-        var findUser = yield userModel_1.UserModel.findOneAndDelete({ "userID": idUser }).then(function (data) {
+        var findUser = yield userModel_1.UserModel.findOneAndDelete({ "userID": idUser });
+        if (findUser) {
             return h.response("Delete User thanh cong");
-        });
+        }
         return h.response("Delete User that bai");
     }
     catch (error) {

@@ -71,7 +71,7 @@ exports.deleteVoucher = deleteVoucher;
 const updateVoucher = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         var body = request.payload;
-        var findVoucher = yield voucherModel_1.VoucherModel.findOneAndUpdate({ "voucherCode": body.idUser });
+        var findVoucher = yield voucherModel_1.VoucherModel.findOneAndUpdate({ "voucherCode": body.idUser }, { "voucherCode": "updatedVoucher" });
         if (findVoucher) {
             return h.response("cap nhat voucher thanh cong");
         }
@@ -85,14 +85,13 @@ exports.updateVoucher = updateVoucher;
 // get voucher
 const getVoucherByID = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //var body = <IVoucher>request.payload;
         var idEvent = request.params.idEvent;
-        var findEvent = yield eventModel_1.EventModel.findOne({ "eventID": idEvent }).then(function () {
-            var a = voucherModel_1.VoucherModel.find({ "idEvent": idEvent });
-            console.log(a);
-            //return h.response(a);
-        });
-        return h.response("");
+        var findEvent = yield eventModel_1.EventModel.find({ "eventID": idEvent });
+        if (findEvent) {
+            var a = yield voucherModel_1.VoucherModel.find({ "idEvent": idEvent });
+            return h.response(a);
+        }
+        return h.response("Khong tim thay voucher");
     }
     catch (error) {
         console.log(error);
@@ -104,12 +103,12 @@ const getVouchers = (request, h) => __awaiter(void 0, void 0, void 0, function* 
     try {
         //var body = <IVoucher>request.payload;
         var idEvent = request.params.idEvent;
-        var findEvent = yield eventModel_1.EventModel.findOne({ "eventID": idEvent }).then(function () {
-            var a = voucherModel_1.VoucherModel.find({ "idEvent": idEvent });
-            console.log(a);
-            //return h.response(a);
-        });
-        return h.response("");
+        var findEvent = yield eventModel_1.EventModel.find({ "eventID": idEvent });
+        if (findEvent) {
+            var a = voucherModel_1.VoucherModel.find({});
+            return h.response(a);
+        }
+        return h.response("khong tim thay Voucher");
     }
     catch (error) {
         console.log(error);

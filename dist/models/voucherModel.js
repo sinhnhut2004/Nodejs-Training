@@ -10,15 +10,19 @@ const voucherSchema = new Schema({
     voucherCode: {
         type: String,
         require: true,
-        unique: true
+        unique: true,
     },
     idEvent: {
         type: String,
-        require: true
+        require: true,
+    },
+    userID: {
+        type: String,
+        require: true,
     },
     dateExpire: {
         type: String,
-        require: true
-    }
+        require: true,
+    },
 });
-exports.VoucherModel = mongoose_1.default.model('voucher', voucherSchema);
+exports.VoucherModel = mongoose_1.default.model("voucher", voucherSchema);

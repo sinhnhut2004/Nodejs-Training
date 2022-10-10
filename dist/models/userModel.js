@@ -10,16 +10,16 @@ const userSchema = new Schema({
     userID: {
         type: String,
         require: true,
-        unique: true
+        unique: true,
     },
     userName: {
         type: String,
         require: true,
-        unique: true
+        unique: true,
     },
     email: {
         type: String,
-        require: true
-    }
+        require: true,
+    },
 });
-exports.UserModel = mongoose_1.default.model('user', userSchema);
+exports.UserModel = mongoose_1.default.model("user", userSchema);

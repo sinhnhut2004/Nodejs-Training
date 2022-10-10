@@ -15,7 +15,8 @@
     "@hapi/vision": "^7.0.0",
     "dotenv": "^16.0.2",
     "joi": "^17.6.0",
-    "mongoose": "^6.6.1"
+    "mongoose": "^6.6.1",
+    "rand-token": "^1.0.1"
   },
   "devDependencies": {
     "@types/hapi__hapi": "^20.0.12",

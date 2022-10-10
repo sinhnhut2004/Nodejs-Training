@@ -60,26 +60,30 @@ const updateEvent = (request, h) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.updateEvent = updateEvent;
+// get A event
 const getEvent = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        var body = request.payload;
-        var findEvent = yield eventModel_1.EventModel.find({ "eventID": body.eventID }).then(function (data) {
-            return h.response(data);
-        });
-        return h.response("get event that bai");
+        var eventID = request.params.idEvent;
+        var findEvent = yield eventModel_1.EventModel.find({ "eventID": eventID });
+        if (findEvent) {
+            return h.response(findEvent);
+        }
+        return h.response("khong tim thay Event");
     }
     catch (error) {
         console.log(error);
     }
 });
 exports.getEvent = getEvent;
+// get all Event
 const getEvents = (request, h) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         var body = request.payload;
-        var findEvent = yield eventModel_1.EventModel.find({}).then(function (data) {
-            return h.response(data);
-        });
-        return h.response("get event that bai");
+        var findEvent = yield eventModel_1.EventModel.find({});
+        if (findEvent) {
+            return h.response(findEvent);
+        }
+        return h.response("Khong tim thay Event");
     }
     catch (error) {
         console.log(error);

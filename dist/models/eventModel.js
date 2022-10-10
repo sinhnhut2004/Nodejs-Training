@@ -10,16 +10,21 @@ const eventSchema = new Schema({
     maxQuantityVoucher: {
         type: Number,
         require: true,
-        unique: true
+        unique: true,
+    },
+    maxQuantityRemain: {
+        type: Number,
+        require: true,
+        unique: true,
     },
     eventID: {
         type: String,
         require: true,
-        unique: true
+        unique: true,
     },
     eventName: {
         type: String,
-        require: true
-    }
+        require: true,
+    },
 });
-exports.EventModel = mongoose_1.default.model('event', eventSchema);
+exports.EventModel = mongoose_1.default.model("event", eventSchema);
