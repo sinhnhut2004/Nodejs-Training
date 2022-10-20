@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 export interface IVoucher {
-  idEvent: String;
-  idUser: String;
+  eventID: String;
+  userID: String;
 }
 const Schema = mongoose.Schema;
 const voucherSchema = new Schema({
@@ -11,7 +11,7 @@ const voucherSchema = new Schema({
     require: true,
     unique: true,
   },
-  idEvent: {
+  eventID: {
     type: String,
     require: true,
   },

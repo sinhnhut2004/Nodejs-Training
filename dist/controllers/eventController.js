@@ -17,7 +17,7 @@ const joi_1 = __importDefault(require("joi"));
 const eventModel_1 = require("../models/eventModel");
 // validate by joi for request
 const eventPayload = joi_1.default.object({
-    idEvent: joi_1.default.string().required(),
+    eventID: joi_1.default.string().required(),
     eventName: joi_1.default.string().required(),
     maxQuantityVoucher: joi_1.default.number().required(),
 });
@@ -85,8 +85,8 @@ const createEvent = (request, h) => __awaiter(void 0, void 0, void 0, function* 
         if (!findEvent) {
             var b = yield new eventModel_1.EventModel({
                 maxQuantityVoucher: body.maxQuantityVoucher,
-                maxQuantity: body.maxQuantityVoucher,
-                idEvent: body.eventID,
+                maxQuantityRemain: body.maxQuantityVoucher,
+                eventID: body.eventID,
                 eventName: body.eventName,
             }).save();
             return h.response("Create event successfully");

@@ -82,6 +82,7 @@ export const createUser = async (request: Request, h: ResponseToolkit) => {
     return h.response("Create user successfully");
   } catch (error) {
     console.log(error);
+    return h.response("Create user fail");
   }
 };
 

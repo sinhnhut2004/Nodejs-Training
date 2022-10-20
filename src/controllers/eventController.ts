@@ -5,7 +5,7 @@ import { EventModel, IEvent } from "../models/eventModel";
 
 // validate by joi for request
 const eventPayload = Joi.object({
-  idEvent: Joi.string().required(),
+  eventID: Joi.string().required(),
   eventName: Joi.string().required(),
   maxQuantityVoucher: Joi.number().required(),
 });
@@ -78,8 +78,8 @@ export const createEvent = async (request: Request, h: ResponseToolkit) => {
     if (!findEvent) {
       var b = await new EventModel({
         maxQuantityVoucher: body.maxQuantityVoucher,
-        maxQuantity: body.maxQuantityVoucher,
-        idEvent: body.eventID,
+        maxQuantityRemain: body.maxQuantityVoucher,
+        eventID: body.eventID,
         eventName: body.eventName,
       }).save();
       return h.response("Create event successfully");

@@ -10,8 +10,8 @@ import { commitWithRetry } from "../configs/transaction";
 
 // validate by joi for request
 const voucherPayload = Joi.object({
-  idEvent: Joi.string().required(),
-  idUser: Joi.string().required(),
+  eventID: Joi.string().required(),
+  userID: Joi.string().required(),
 });
 
 export const voucherRoutes = (server: Server) => {
@@ -86,37 +86,39 @@ export const createVoucher = async (request: Request, h: ResponseToolkit) => {
   session.startTransaction();
   try {
     var body = <IVoucher>request.payload;
-    var findEventID = await EventModel.find({ eventID: body.idEvent });
+    var findEventID = await EventModel.find({ eventID: body.eventID }).session(session);
     var maxQuantity = <number>findEventID[0].maxQuantityRemain;
     // check voucher alrealdy create or not
     if (maxQuantity > 0) {
       var findVoucher = await VoucherModel.findOne({
-        idEvent: body.idEvent,
-        userID: body.idUser,
-      });
+        eventID: body.eventID,
+        userID: body.userID,
+      }).session(session);
       // update maxQuantityRemain
       if (!findVoucher) {
         var updateQuantity = await EventModel.findOneAndUpdate(
-          { eventID: body.idEvent },
-          { $inc: { maxQuantityRemain: -1 } }
+          { eventID: body.eventID },
+          { $inc: { maxQuantityRemain: -1 } },
+          {session: session}
         );
         var voucherCode = uid(6); // generate voucherCode
         var newVoucher = await new VoucherModel({
           voucherCode: voucherCode,
-          idEvent: body.idEvent,
+          idEvent: body.eventID,
           dateExpire: "30/10/2022",
-        }).save();
+        }).save({session: session});
         await commitWithRetry(session);
+        session.endSession();
         return h.response(newVoucher);
       }
     }
+    session.endSession();
     return h.response("Create voucher fail");
   } catch (error) {
     await session.abortTransaction();
-    console.log(error);
-  } finally {
     session.endSession();
-  }
+    console.log(error);
+  } 
 };
 
 // Delete a voucher
@@ -124,8 +126,8 @@ export const deleteVoucher = async (request: Request, h: ResponseToolkit) => {
   try {
     var body = <IVoucher>request.payload;
     var findVoucher = await VoucherModel.findOneAndDelete({
-      idEvent: body.idEvent,
-      userID: body.idUser,
+      idEvent: body.eventID,
+      userID: body.eventID,
     });
     if (findVoucher) {
       return h.response("Delete voucher successfully");
@@ -139,7 +141,7 @@ export const deleteVoucher = async (request: Request, h: ResponseToolkit) => {
 // Update voucher
 export const updateVoucher = async (request: Request, h: ResponseToolkit) => {
   try {
-    var idVoucher = request.params.idVoucher;
+    var idVoucher = request.params.id;
     var findVoucher = await VoucherModel.findOneAndUpdate(
       { voucherID: idVoucher },
       { voucherCode: "updatedVoucher" }

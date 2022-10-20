@@ -44,6 +44,7 @@ const db_config_1 = require("./configs/db.config");
 const voucherController_1 = require("./controllers/voucherController");
 const userController_1 = require("./controllers/userController");
 const eventController_1 = require("./controllers/eventController");
+const editableController_1 = require("./controllers/editableController");
 const server = Hapi.server({
     port: 3300,
     host: "localhost",
@@ -52,7 +53,7 @@ server.route({
     method: "GET",
     path: "/",
     handler: function () {
-        return "day la trang mac dinh";
+        return "Home";
     },
 });
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -83,6 +84,7 @@ exports.start = start;
 (0, userController_1.usertRoutes)(server);
 (0, eventController_1.eventRoutes)(server);
 (0, voucherController_1.voucherRoutes)(server);
+(0, editableController_1.editableEventRoutes)(server);
 process.on("unhandledRejection", (err) => {
     console.log(err);
     process.exit(1);
